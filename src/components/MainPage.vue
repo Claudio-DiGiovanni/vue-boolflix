@@ -1,50 +1,65 @@
+<!-- eslint-disable vue/no-async-in-computed-properties -->
+<!-- eslint-disable indent -->
+<!-- eslint-disable vue/return-in-computed-property -->
 <!-- eslint-disable max-len -->
 <template>
-  <div class="container">
-    <label for="t">
-      <input type="text" name="t" id="t" v-model="searchString" @keyup.enter="searchMovie">
-    </label>
-    <h1>film</h1>
-    <ul v-for="movie in arrMovies" :key="movie.id">
-      <li>{{ movie.title }}</li>
-      <li>{{ movie.original_title }}</li>
-      <li><font-awesome-icon v-for="stars in (parseInt(movie.vote_average/2))" :key="stars" icon="fa-solid fa-star" style="color:gold"/></li>
-      <li><span :class="('fi fi-' + (movie.original_language != 'en' ? movie.original_language : 'gb'))"></span></li>
-      <li><img :src="('https://image.tmdb.org/t/p/w500' + movie.poster_path)" alt=""></li>
-    </ul>
-    <h1>serie tv</h1>
-    <ul v-for="TVShow in arrTVShow" :key="TVShow.id">
-      <li>{{ TVShow.name }}</li>
-      <li>{{ TVShow.original_name }}</li>
-      <li>{{ TVShow.vote_average }}</li>
-      <li><span :class="('fi fi-' + (TVShow.original_language != 'en' ? TVShow.original_language : 'gb'))"></span></li>
-      <li><img :src="('https://image.tmdb.org/t/p/w500' + TVShow.poster_path)" alt=""></li>
-    </ul>
-  </div>
+  <main>
+    <div class="container">
+      <div class="film row row-cols-4 g-5" v-if="(arrMovies != null)">
+        <h1>film</h1>
+        <CardMovie v-for="movie in arrMovies" :key="movie.id"
+        :title="movie.title"
+        :originaTitle="movie.original_title"
+        :vote="movie.vote_average"
+        :originalLanguage="movie.original_language"
+        :image="movie.poster_path"
+        />
+      </div>
+      <div class="series row row-cols-4 g-5" v-if="(arrTVShow != null)">
+        <h1>serie tv</h1>
+        <CardMovie v-for="TVShow in arrTVShow" :key="TVShow.id"
+        :title="TVShow.name"
+        :originaTitle="TVShow.original_name"
+        :vote="TVShow.vote_average"
+        :originalLanguage="TVShow.original_language"
+        :image="TVShow.poster_path"
+        />
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
 import axios from 'axios';
+import CardMovie from '@/components/CardMovie.vue';
 
 export default {
+  components: {
+    CardMovie,
+  },
   data() {
     return {
-      searchString: '',
       arrMovies: null,
       arrTVShow: null,
       imgURL: '',
     };
   },
-  methods: {
-    searchMovie() {
+  props: {
+    searchString: String,
+  },
+  computed: {
+    search() {
+      // eslint-disable-next-line vue/no-async-in-computed-properties
       axios.get(`https://api.themoviedb.org/3/search/movie?query=${this.searchString}&api_key=4886c22c895eeca818d2be897ecf2417`)
         .then((axiosResponse) => {
           this.arrMovies = axiosResponse.data.results;
         });
+      // eslint-disable-next-line vue/no-async-in-computed-properties
       axios.get(`https://api.themoviedb.org/3/search/tv?query=${this.searchString}&api_key=4886c22c895eeca818d2be897ecf2417`)
         .then((axiosResponse) => {
           this.arrTVShow = axiosResponse.data.results;
         });
+      return this.searchString;
     },
   },
 };
@@ -52,4 +67,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '~flag-icons/css/flag-icons.min.css';
+main{
+margin-top: 10rem;
+}
+
+h1{
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
 </style>
