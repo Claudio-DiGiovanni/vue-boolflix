@@ -8,8 +8,9 @@
     <ul v-for="movie in arrMovies" :key="movie.id">
       <li>{{ movie.title }}</li>
       <li>{{ movie.original_title }}</li>
-      <li>{{ movie.vote_average }}</li>
+      <li><font-awesome-icon v-for="stars in (parseInt(movie.vote_average/2))" :key="stars" icon="fa-solid fa-star" style="color:gold"/></li>
       <li><span :class="('fi fi-' + (movie.original_language != 'en' ? movie.original_language : 'gb'))"></span></li>
+      <li><img :src="('https://image.tmdb.org/t/p/w500' + movie.poster_path)" alt=""></li>
     </ul>
     <h1>serie tv</h1>
     <ul v-for="TVShow in arrTVShow" :key="TVShow.id">
@@ -17,6 +18,7 @@
       <li>{{ TVShow.original_name }}</li>
       <li>{{ TVShow.vote_average }}</li>
       <li><span :class="('fi fi-' + (TVShow.original_language != 'en' ? TVShow.original_language : 'gb'))"></span></li>
+      <li><img :src="('https://image.tmdb.org/t/p/w500' + TVShow.poster_path)" alt=""></li>
     </ul>
   </div>
 </template>
@@ -30,6 +32,7 @@ export default {
       searchString: '',
       arrMovies: null,
       arrTVShow: null,
+      imgURL: '',
     };
   },
   methods: {
