@@ -1,13 +1,20 @@
 <template>
-  <div></div>
+  <div>
+    <main-page />
+  </div>
 </template>
 
 <script>
-export default {
+import MainPage from '@/components/MainPage.vue';
 
+export default {
+  components: {
+    MainPage,
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "~bootstrap/scss/bootstrap";
 
 </style>
