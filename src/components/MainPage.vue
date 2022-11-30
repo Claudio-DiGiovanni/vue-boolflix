@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="container">
     <label for="t">
@@ -6,8 +7,8 @@
     <ul v-for="movie in arrMovies" :key="movie.id">
       <li>{{ movie.title }}</li>
       <li>{{ movie.original_title }}</li>
-      <li>{{ movie.original_language }}</li>
       <li>{{ movie.vote_average }}</li>
+      <li><span :class="('fi fi-' + (movie.original_language != 'en' ? movie.original_language : 'gb'))"></span></li>
     </ul>
   </div>
 </template>
@@ -32,3 +33,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '~flag-icons/css/flag-icons.min.css';
+</style>
