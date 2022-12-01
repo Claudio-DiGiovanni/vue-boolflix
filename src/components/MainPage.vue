@@ -13,6 +13,7 @@
         :vote="movie.vote_average"
         :originalLanguage="movie.original_language"
         :image="movie.poster_path"
+        :overview="movie.overview"
         />
       </div>
       <div class="series row row-cols-4 g-5" v-if="(arrTVShow != null)">
@@ -23,6 +24,7 @@
         :vote="TVShow.vote_average"
         :originalLanguage="TVShow.original_language"
         :image="TVShow.poster_path"
+        :overview="TVShow.overview"
         />
       </div>
     </div>
@@ -67,6 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~flag-icons/css/flag-icons.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 main{
 margin-top: 10rem;
 }
@@ -76,5 +79,6 @@ h1{
   text-align: center;
   text-transform: uppercase;
   width: 100%;
+  font-family: 'Bungee Shade', cursive;
 }
 </style>
