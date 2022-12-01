@@ -1,7 +1,7 @@
 <template>
   <div>
-    <HeaderPage @searchString="search" />
-    <main-page :searchString="searchString" />
+    <HeaderPage @searchString="search" :arrSelect="arrGenres" @selectedGenre="changeGenre"/>
+    <main-page :searchString="searchString"  @selectGenre="createSelect" :selectedGenre="genreId"/>
   </div>
 </template>
 
@@ -17,11 +17,19 @@ export default {
   data() {
     return {
       searchString: '',
+      arrGenres: [],
+      genreId: '',
     };
   },
   methods: {
     search(value) {
       this.searchString = value;
+    },
+    createSelect(value) {
+      this.arrGenres = value;
+    },
+    changeGenre(value) {
+      this.genreId = value;
     },
   },
 };

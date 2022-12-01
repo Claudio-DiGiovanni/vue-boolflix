@@ -3,6 +3,9 @@
   <header>
     <div class="container">
       <span>boolflix</span>
+      <select name="genre" v-model="genreId" @change="$emit('selectedGenre', genreId)">
+        <option v-for="genre in arrSelect" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
+      </select>
       <label for="t">
         <input type="text" name="t" id="t" v-model="searchString" @keyup.enter="$emit('searchString', searchString)">
       </label>
@@ -15,7 +18,11 @@ export default {
   data() {
     return {
       searchString: '',
+      genreId: '',
     };
+  },
+  props: {
+    arrSelect: Array,
   },
 };
 </script>
