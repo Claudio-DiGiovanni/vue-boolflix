@@ -5,11 +5,11 @@
 <template>
   <main>
     <div class="container">
-      <div class="film row row-cols-4 g-5" v-if="(arrMovies != null)">
+      <div class="film row row-cols-md-4 row-cols-2 g-5" v-if="(arrMovies != null)">
         <h1>film</h1>
         <CardMovie v-for="movie in arrMovies" :key="movie.id"
         :title="movie.title"
-        :originaTitle="movie.original_title"
+        :originalTitle="movie.original_title"
         :vote="movie.vote_average"
         :originalLanguage="movie.original_language"
         :image="movie.poster_path"
@@ -19,7 +19,7 @@
         <h1>serie tv</h1>
         <CardMovie v-for="TVShow in arrTVShow" :key="TVShow.id"
         :title="TVShow.name"
-        :originaTitle="TVShow.original_name"
+        :originalTitle="TVShow.original_name"
         :vote="TVShow.vote_average"
         :originalLanguage="TVShow.original_language"
         :image="TVShow.poster_path"

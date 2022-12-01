@@ -3,11 +3,14 @@
   <div class="col">
     <img class="img-fluid" :src="('https://image.tmdb.org/t/p/w500' + image)" alt="">
     <ul>
-        <li>{{ title }}</li>
-        <li v-if="(title != originalTitle)">{{ originaTitle }}</li>
-        <li><font-awesome-icon v-for="stars in (parseInt(vote/2))" :key="stars" icon="fa-solid fa-star" style="color:gold"/></li>
+        <li v-if="(title !== originalTitle)">Titolo Originale: {{ originalTitle }}</li>
+        <li>
+          <font-awesome-icon v-for="stars in (parseInt(vote / 2))" :key="stars" icon="fa-solid fa-star" style="color:gold"/>
+          <font-awesome-icon v-for="stars in (5 - parseInt(vote / 2))" :key="(stars + 3)" icon="fa-regular fa-star" style="color:white"/>
+        </li>
         <li><span :class="('fi fi-' + (originalLanguage != 'en' ? originalLanguage : 'gb'))"></span></li>
     </ul>
+    <h4>{{ title }}</h4>
   </div>
 </template>
 
@@ -15,7 +18,7 @@
 export default {
   props: {
     title: String,
-    originaTitle: String,
+    originalTitle: String,
     vote: Number,
     originalLanguage: String,
     image: String,
@@ -26,11 +29,12 @@ export default {
 <style lang="scss" scoped>
 ul{
   list-style: none;
+  height: 80%;
   display: none;
-  height: 100%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
 }
 
 li{
@@ -39,19 +43,25 @@ li{
   font-size: 20px;
 }
 
-img{
-  border-radius: 10px;
-  :hover{
-    display: none;
-  }
+h4{
+  text-align: center;
+  color: white;
 }
 
-col{
-  background-color: black;
-  padding: 0;
+img{
   border-radius: 10px;
-  :hover ul{
-    display: flex;
-  }
+}
+
+.col:hover img{
+  display: none;
+}
+
+.col:hover ul{
+  display: flex;
+}
+
+.col:hover{
+  background-color: black;
+  border-radius: 10px;
 }
 </style>
