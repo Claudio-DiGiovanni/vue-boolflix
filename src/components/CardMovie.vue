@@ -8,7 +8,7 @@
           <li v-if="(title !== originalTitle)"><strong>Titolo Originale: </strong>{{ originalTitle }}</li>
           <li>
             <font-awesome-icon v-for="stars in (parseInt(vote / 2))" :key="stars" icon="fa-solid fa-star" style="color:gold"/>
-            <font-awesome-icon v-for="stars in (5 - parseInt(vote / 2))" :key="(stars + 3)" icon="fa-regular fa-star" style="color:white"/>
+            <font-awesome-icon v-for="stars in (5 - parseInt(vote / 2))" :key="stars" icon="fa-regular fa-star" style="color:white"/>
           </li>
           <li><span :class="('fi fi-' + ISO)"></span></li>
           <li><p>{{ overview }}</p></li>

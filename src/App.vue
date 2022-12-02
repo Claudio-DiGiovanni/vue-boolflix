@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       searchString: '',
-      arrGenres: [],
+      arrGenres: null,
       genreId: 'all',
     };
   },
