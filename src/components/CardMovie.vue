@@ -3,7 +3,7 @@
 <template>
   <div class="col">
     <div class="contents">
-      <img class="img-fluid" :src="('https://image.tmdb.org/t/p/w500' + image)" alt="">
+      <img class="img-fluid" :src="image" alt="">
       <ul>
           <li v-if="(title !== originalTitle)"><strong>Titolo Originale: </strong>{{ originalTitle }}</li>
           <li>
