@@ -4,6 +4,7 @@
     <div class="container">
       <span>boolflix</span>
       <select name="genre" v-model="genreId" @change="$emit('selectedGenre', genreId)">
+        <option value="all" selected>All</option>
         <option v-for="genre in arrSelect" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
       </select>
       <label for="t">

@@ -7,13 +7,13 @@
     <div class="container">
       <div class="film row row-cols-md-4 row-cols-2 g-5" v-if="(arrMovies != null)">
         <h1>film</h1>
-        <CardMovie v-show="(movie.genre_ids.includes(selectedGenre))" v-for="movie in arrMovies" :key="movie.id" :title="movie.title" :originalTitle="movie.original_title"
+        <CardMovie v-show="(filtered(movie))" v-for="movie in arrMovies" :key="movie.id" :title="movie.title" :originalTitle="movie.original_title"
           :vote="movie.vote_average" :originalLanguage="movie.original_language" :image="movie.poster_path"
           :overview="movie.overview" />
       </div>
       <div class="series row row-cols-4 g-5" v-if="(arrTVShow != null)">
         <h1>serie tv</h1>
-        <CardMovie v-show="(TVShow.genre_ids.includes(selectedGenre))" v-for="TVShow in arrTVShow" :key="TVShow.id" :title="TVShow.name"
+        <CardMovie v-show="(filtered(TVShow))" v-for="TVShow in arrTVShow" :key="TVShow.id" :title="TVShow.name"
           :originalTitle="TVShow.original_name" :vote="TVShow.vote_average" :originalLanguage="TVShow.original_language"
           :image="TVShow.poster_path" :overview="TVShow.overview" />
       </div>
@@ -41,27 +41,38 @@ export default {
     searchString: String,
     selectedGenre: String,
   },
-  computed: {
-    search() {
-      // eslint-disable-next-line vue/no-async-in-computed-properties
-      axios.get(`https://api.themoviedb.org/3/search/movie?query=${this.searchString}&api_key=4886c22c895eeca818d2be897ecf2417`)
+  methods: {
+    filtered(movie) {
+      if (movie.genre_ids.includes(this.selectedGenre) || this.selectedGenre === 'all') {
+        return true;
+      }
+      return false;
+    },
+  },
+  watch: {
+    searchString(newSearchString) {
+      axios.get(`https://api.themoviedb.org/3/search/movie?query=${newSearchString}&api_key=4886c22c895eeca818d2be897ecf2417`)
         .then((axiosResponse) => {
           this.arrMovies = axiosResponse.data.results;
+          console.log(this.arrMovies);
         });
-      // eslint-disable-next-line vue/no-async-in-computed-properties
-      axios.get(`https://api.themoviedb.org/3/search/tv?query=${this.searchString}&api_key=4886c22c895eeca818d2be897ecf2417`)
+      axios.get(`https://api.themoviedb.org/3/search/tv?query=${newSearchString}&api_key=4886c22c895eeca818d2be897ecf2417`)
         .then((axiosResponse) => {
           this.arrTVShow = axiosResponse.data.results;
+          console.log(this.arrTVShow);
         });
-      // eslint-disable-next-line vue/no-async-in-computed-properties
+    },
+  },
+  created: {
+    createSelect() {
       axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=4886c22c895eeca818d2be897ecf2417')
         .then((axiosResponse) => {
           this.arrGenres = axiosResponse.data.genres;
         });
       this.$emit('selectGenre', this.arrGenres);
-      return this.searchString;
     },
   },
+
 };
 </script>
 
