@@ -63,16 +63,13 @@ export default {
         });
     },
   },
-  created: {
-    createSelect() {
-      axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=4886c22c895eeca818d2be897ecf2417')
-        .then((axiosResponse) => {
-          this.arrGenres = axiosResponse.data.genres;
-        });
-      this.$emit('selectGenre', this.arrGenres);
-    },
+  created() {
+    axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=4886c22c895eeca818d2be897ecf2417')
+      .then((axiosResponse) => {
+        this.arrGenres = axiosResponse.data.genres;
+      });
+    this.$emit('selectGenre', this.arrGenres);
   },
-
 };
 </script>
 
